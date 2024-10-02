@@ -42,7 +42,7 @@ app.post('/create-blog', (req, res) => {
 
     // Save HTML file for the blog post
     const fileName = `${blogTitle.toLowerCase().replace(/\s+/g, '-')}.html`;
-    const filePath = path.join(__dirname, 'public', fileName);
+    const filePath = path.join(__dirname, 'public/created_blogs', fileName);
 
     fs.writeFile(filePath, htmlContent, (err) => {
         if (err) {
@@ -58,3 +58,5 @@ app.post('/create-blog', (req, res) => {
 app.listen(3000, () => {
     console.log('Server is running on http://localhost:3000');
 });
+
+
