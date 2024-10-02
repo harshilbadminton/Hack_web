@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Webscrapper in Python</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="prism.css"> <!-- Add the CSS file for syntax highlighting -->
+    <style>
+        /* Custom styles */
+        /* Set the height of the body to fill the viewport */
+        body {
+            height: 100vh;
+            background-color: #000;
+            color: #00FF00;
+        }
+
+        /* Customize the container width */
+        .container {
+            max-width: 100vw;
+        }
+
+        /* Style the headings */
+        h1 {
+            color: #00FF00;
+        }
+
+        /* Style the blog post boxes */
+        .bg-green-900 {
+            background-color: #001a00;
+            box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
+        }
+
+        /* Style the headings */
+        h2 {
+            color: #00FF00;
+        }
+
+        /* Style the code blocks */
+        pre code {
+            color: #00FF00;
+            background-color: #001a00;
+            padding: 1rem;
+            display: block;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        }
+
+        /* Style the footer */
+        footer {
+            margin-top: auto;
+            background-color: #001a00;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="bg-black py-8">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-extrabold text-[#00ff00] text-center">E-commerce WebScrapper in Python</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Blog Post -->
+        <div class="bg-green-900 p-8 rounded-lg">
+            <h2 class="text-3xl font-bold mb-4">Explaining Code: E-commerce Webscrapper-Made Using Python</h2>
+            <p class="mb-4">In this blog post, we will explain the step-by-step working of the Python code for website text grabbing. Let's dive in!</p>
+    
+            <h3 class="text-2xl font-bold mb-2">1. Importing the necessary libraries</h3>
+            <pre><code>import requests
+    from bs4 import BeautifulSoup</code></pre>
+    
+            <h3 class="text-2xl font-bold mb-2">2. Defining the website_text_grabber function</h3>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>This function will send a request with fake headers of mozilla to get the html text presnet in the website</li>
+                <li>We are using fake headers of mozilla so that amazon do not give the oops error and can load successfully which is currently are target</li>
+            </ol>
+            <pre><code>def website_text_grabber(url):
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:90.0) Gecko/20100101 Firefox/90.0"
+        }
+        response = requests.get(url, headers=headers)
+        return response.text</code></pre>
+    
+            <h3 class="text-2xl font-bold mb-2">3. Defining the product_nikalar function</h3>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Product_nikalar function will extract the product links from the website and store them in products set</li>
+                <li>/dp/ exists here because the products links start from it mostly and if it is present in any link that simply means that it is product link</li>
+            </ol>
+            <pre><code>def product_nikalar(text):
+        products = set()
+        soup = BeautifulSoup(text, 'html.parser')
+    
+        for link in soup.find_all("a"):
+            if link is not None:
+                linkhref = link.get("href")
+                if linkhref is not None:
+                    if "/dp/" in linkhref.split("/ref")[0]:
+                        products.add(linkhref.split("/ref")[0])
+        return products</code></pre>
+    
+            <h3 class="text-2xl font-bold mb-2">4. Defining the save_text function</h3>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Through this function we can store text argument in the filename which can be any currently in webscrapping it will be index.html.</li>
+                <li>In this html code of product will exist</li>
+            </ol>
+            <pre><code>def save_text(filename, text):
+        with open(filename, 'w', encoding="utf-8") as f:
+            f.write(text)</code></pre>
+    
+            <h3 class="text-2xl font-bold mb-2">5. Defining the extract_data function</h3>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>This is the main function of this whole web scrapping tool which will be used to extact the heading url reviews and lot more can be extracted from the product website</li>
+                <li>in data dictionary the fetched data will be stored</li>
+            </ol>
+            <pre><code>def extract_data(product):
+        urls = f"https://www.amazon.in{product}"
+        text = website_text_grabber(urls)
+        save_text("product.html", text)
+        data = {}
+    
+        soup = BeautifulSoup(text, "html.parser")
+        heading = soup.find("span", {"id": "productTitle"})
+        price = soup.find("span", {"id": "price"}).get_text()
+        data["heading"] = heading.get_text()
+        data["url"] = urls
+        data["price"] = price
+        reviews = []
+        review_elements = soup.find_all('div', {'data-hook': 'review'})
+        for review_element in review_elements:
+            review_text = review_element.find('span', {'data-hook': 'review-body'}).get_text()
+            reviews.append(review_text)
+    
+        data["Reviews"] = reviews
+    
+        return data</code></pre>
+    
+            <h3 class="text-2xl font-bold mb-2">6. Main code execution</h3>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Here we will take the query from the user like tshirt or something like and we will search this query on the ecommerce store like amazon to get products related to it</li>
+                <li>Then using product nikalkar we will get the product link starting from "/"</li>
+                <li>Using extract text function we will extract the data from the website</li>
+                <li>And then we will print it</li>
+            </ol>
+            <pre><code>if __name__ == "__main__":
+        query = input("Enter the query:- ")
+        url = f"https://www.amazon.in/s?k={query}"
+        text = website_text_grabber(url)
+        
+        save_text("index.html", text)
+        products = product_nikalar(text)
+        for product in products:
+            data = extract_data(product)
+            print(data)</code></pre>
+    
+            <p class="mb-4">This Python code demonstrates how to grab website text using the requests and BeautifulSoup libraries. It defines several functions to perform different tasks, such as fetching the website content, extracting product URLs, saving text to files, and extracting data from specific products on Amazon. The main code execution section prompts the user for a query, fetches the search results from Amazon, and extracts data from the products found.</p>
+    
+            <p class="mb-4">By understanding the step-by-step breakdown of the code, you can grasp the underlying concepts and apply them to your own projects.</p>
+        </div>
+    </main>
+
+    <script src="prism.js"></script> <!-- Add the JavaScript file for syntax highlighting -->
+</body>
+
+</html>

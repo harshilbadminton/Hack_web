@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hosting a Website with Node.js and Tailwind CSS in Termux</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        /* Set the height of the body to fill the viewport */
+        body {
+            height: 100vh;
+            background-color: #000;
+            color: #00FF00;
+        }
+
+        /* Customize the container width */
+        .container {
+            max-width: 100vw;
+        }
+
+        /* Style the headings */
+        h1 {
+            color: #00FF00;
+        }
+
+        /* Style the blog post boxes */
+        .bg-green-900 {
+            background-color: #001a00;
+            box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
+        }
+
+        /* Style the headings */
+        h2 {
+            color: #00FF00;
+        }
+
+        /* Style the code blocks */
+        pre code {
+            color: #00FF00;
+            background-color: #001a00;
+            padding: 1rem;
+            display: block;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+        }
+
+        /* Style the footer */
+        footer {
+            margin-top: auto;
+            background-color: #001a00;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="bg-black py-8">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold text-green-500">Hosting a Website with Node.js and Tailwind CSS in Termux</h1>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Blog Post -->
+        <div class="bg-green-900 p-8 rounded-lg">
+            <h2 class="text-3xl font-bold mb-4">Introduction</h2>
+            <p class="mb-4">In this blog post, we will learn how to host a website using Node.js and Tailwind CSS in Termux. Termux is an Android terminal emulator and Linux environment app that allows you to run command-line programs on your Android device.</p>
+
+            <h2 class="text-3xl font-bold mb-4">Prerequisites</h2>
+            <p class="mb-4">Before we get started, make sure you have the following:</p>
+            <ul class="mb-4 list-disc pl-8">
+                <li>A website folder containing your website files.</li>
+                <li>Termux installed on your Android device.</li>
+            </ul>
+
+            <h2 class="text-3xl font-bold mb-4">Step 1: Setup the Server</h2>
+            <p class="mb-4">To host your website, we need to set up a server using Node.js and Tailwind CSS in Termux. Follow these steps:</p>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Create a new folder for your website in Termux.</li>
+                <li>Navigate to your website folder in Termux.</li>
+                <li>Initialize the folder and install the necessary dependencies by running the following commands:</li>
+            </ol>
+            <pre><code>npm init -y
+npm install -D tailwindcss postcss autoprefixer vite
+npx tailwindcss -p</code></pre>
+
+            <h2 class="text-3xl font-bold mb-4">Step 2: Configure the CSS</h2>
+            <p class="mb-4">Next, we need to configure the CSS for our website. Follow these steps:</p>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Create a CSS file in your website folder.</li>
+                <li>Add the following code to the CSS file:</li>
+            </ol>
+            <pre><code>@tailwind base;
+@tailwind components;
+@tailwind utilities;</code></pre>
+
+            <h2 class="text-3xl font-bold mb-4">Step 3: Update Configuration</h2>
+            <p class="mb-4">Now, let's update the configuration file for Tailwind CSS. Follow these steps:</p>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Open the `tailwind.config.js` file in your website folder.</li>
+                <li>Replace the `content: []` line with `content: ["*"]`.</li>
+            </ol>
+
+            <h2 class="text-3xl font-bold mb-4">Step 4: Start the Server</h2>
+            <p class="mb-4">It's time to start the server and host your website. Follow these steps:</p>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Open the `package.json` file in your website folder.</li>
+                <li>Add `"start": "vite"` to the `"scripts"` section.</li>
+                <li>Run the following command in Termux to start the server:</li>
+            </ol>
+            <pre><code>npm run start</code></pre>
+
+            <h2 class="text-3xl font-bold mb-4">Step 5: Host the Website</h2>
+            <p class="mb-4">To make your website publicly accessible, we will use the Serveo service. Follow these steps:</p>
+            <ol class="mb-4 list-decimal pl-8">
+                <li>Open a new session of Termux.</li>
+                <li>Run the following command to host your website:</li>
+            </ol>
+            <pre><code>ssh -R 80:localhost:3000 serveo.net</code></pre>
+            <p class="mb-4">Replace `3000` with the actual port number displayed next to `vite` when you ran the `npm run start` command.</p>
+
+            <h2 class="text-3xl font-bold mb-4">Conclusion</h2>
+            <p class="mb-4">Congratulations! You have successfully hosted your website using Node.js and Tailwind CSS in Termux. Your website is now accessible on the internet. Make sure to customize and enhance your website as per your requirements.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-green-900 py-4">
+        <div class="container mx-auto px-4">
+            <p class="text-center text-green-500">© 2023 Hacker's Den. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
