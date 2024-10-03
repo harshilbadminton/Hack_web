@@ -1,59 +1,11 @@
-const express = require('express');
-const app = express();
-const path = require('path');
-const fs = require('fs');
 
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-
-// Serve main HTML page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'main.html'));
-});
-
-
-// Handle form submission
-app.post('/create-blog', (req, res) => {
-    // Extract data from request body
-    const { blogTitle } = req.body;
-    const { theory } =  req.body;
-    const { codeSnippet } = req.body;
-    const { errorCode } = req.body;
-    const { suggestion } = req.body;
-    
-    console.log(req.body)
-
-    // Generate HTML content for the blog post
-    const htmlContent = `
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>${blogTitle}</title>
-            <!-- Include any CSS stylesheets -->
-        </head>
-        <body>
-            <header>
-                <h1>${blogTitle}</h1>
-            </header>
-            <main>
-                <!-- Include blog content here -->
-            </main>
-            <footer>
-                <p>© 2023 Hacker's Den. All rights reserved.</p>
-            </footer>
-        </body>
-        </html>
-    `;
-    const htmlcontent2 = `
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>${blogTitle}</title>
+        <title>thisshouldworik</title>
         <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
         <link rel="stylesheet" href="prism.css"> <!-- Add the CSS file for syntax highlighting -->
         <style>
@@ -108,7 +60,7 @@ app.post('/create-blog', (req, res) => {
         <!-- Header -->
         <header class="bg-black py-8">
             <div class="container mx-auto px-4">
-                <h1 class="text-4xl font-extrabold text-[#00ff00] text-center">${blogTitle}</h1>
+                <h1 class="text-4xl font-extrabold text-[#00ff00] text-center">thisshouldworik</h1>
             </div>
         </header>
 
@@ -116,10 +68,26 @@ app.post('/create-blog', (req, res) => {
             <!-- Blog Post -->
             <div class="bg-green-900 p-8 rounded-lg">
                 <!--<h2 class="text-3xl font-bold mb-4"></h2> -->
-                <p class="mb-4">${theory}</p>
+                <p class="mb-4">How much it takes</p>
 
-                <h3 class="text-2xl font-bold mb-2">1. ${suggestion}</h3>
-                <pre><code>${codeSnippet}</code></pre>
+                <h3 class="text-2xl font-bold mb-2">1. fs.writeFile(filePath, htmlContent, (err) => {
+        if (err) {
+            console.error('Error saving HTML file:', err);
+            res.status(500).send('Error saving HTML file');
+        } else {
+            console.log('HTML file saved:', fileName);
+            res.status(200).send('Blog post created successfully');
+        }
+    });</h3>
+                <pre><code>fs.writeFile(filePath, htmlContent, (err) => {
+        if (err) {
+            console.error('Error saving HTML file:', err);
+            res.status(500).send('Error saving HTML file');
+        } else {
+            console.log('HTML file saved:', fileName);
+            res.status(200).send('Blog post created successfully');
+        }
+    });</code></pre>
 
                 <h3 class="text-2xl font-bold mb-2">2. Defining the website_text_grabber function</h3>
                 <ol class="mb-4 list-decimal pl-8">
@@ -216,38 +184,4 @@ app.post('/create-blog', (req, res) => {
 </html>
 
     
-    `;
     
-
-
-    // Save HTML file for the blog post
-    const fileName = `${blogTitle.toLowerCase().replace(/\s+/g, '-')}.html`;
-    const fileName2 = `${blogTitle.toLowerCase().replace(/\s+/g, '-')}_custom.html`;
-    const filePath = path.join(__dirname, 'public/created_blogs', fileName);
-    const filePath2 = path.join(__dirname, 'public/custom_created_blogs', fileName2);
-    fs.writeFile(filePath, htmlContent, (err) => {
-        if (err) {
-            console.error('Error saving HTML file:', err);
-            res.status(500).send('Error saving HTML file');
-        } else {
-            console.log('HTML file saved:', fileName);
-            res.status(200).send('Blog post created successfully');
-        }
-    });
-    fs.writeFile(filePath2, htmlcontent2, (err) => {
-        if (err) {
-            console.error('Error saving HTML file:', err);
-            res.status(500).send('Error saving HTML file custom');
-        } else {
-            console.log('HTML file saved:', fileName);
-            res.status(200).send('Blog post created successfully custom');
-        }
-    });
-});
-
-
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
-});
-
-
