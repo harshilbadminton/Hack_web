@@ -1,0 +1,49 @@
+/* Custom styles */
+body {
+    height: 100vh;
+    background-color: #000;
+    color: #00FF00;
+}
+
+.container {
+    max-width: 100vw;
+}
+
+.bg-green-900 {
+    background-color: #001a00;
+    box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
+}
+
+h2 {
+    color: #00FF00;
+}
+
+pre code {
+    color: #00FF00;
+    background-color: #001a00;
+    padding: 1rem;
+    display: block;
+    overflow-x: auto;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+
+.error-box {
+    background-color: #3d0000;
+    color: #FF0000;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.correct-box {
+    background-color: #001a00;
+    color: #00FF00;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+footer {
+    margin-top: auto;
+    background-color: #001a00;
+}

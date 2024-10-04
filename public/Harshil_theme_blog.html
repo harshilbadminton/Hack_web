@@ -5,57 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hacker's Den Blog Maker</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <style>
-        /* Custom styles */
-        body {
-            height: 100vh;
-            background-color: #000;
-            color: #00FF00;
-        }
-
-        .container {
-            max-width: 100vw;
-        }
-
-        .bg-green-900 {
-            background-color: #001a00;
-            box-shadow: 0 4px 6px rgba(0, 255, 0, 0.1);
-        }
-
-        h2 {
-            color: #00FF00;
-        }
-
-        pre code {
-            color: #00FF00;
-            background-color: #001a00;
-            padding: 1rem;
-            display: block;
-            overflow-x: auto;
-            font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-        }
-
-        .error-box {
-            background-color: #3d0000;
-            color: #FF0000;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        .correct-box {
-            background-color: #001a00;
-            color: #00FF00;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            margin-top: auto;
-            background-color: #001a00;
-        }
-    </style>
+    <link rel="stylesheet" href="theme_blog/style.css">
 </head>
 <body>
     <header class="bg-black py-8">
@@ -64,13 +14,34 @@
         </div>
     </header>
     <main class="container mx-auto px-4 py-8">
+        <div>
+            <label>
+                <input type="checkbox" value="codesnippet" onclick="handleCheckboxClick(this)"> Code Snippet
+            </label>
+            <br>
+            
+            <label>
+                <input type="checkbox" value="suggestion" onclick="handleCheckboxClick(this)"> Suggestion
+            </label>
+            <br>
+            
+            <label>
+                <input type="checkbox" value="theory" onclick="handleCheckboxClick(this)"> Theory
+            </label>
+            <br>
+            
+            <label>
+                <input type="checkbox" value="errorcode" onclick="handleCheckboxClick(this)"> Error Code
+            </label>
+        </div>
         <form action="/create-blog" method="POST">
             <div class="bg-green-900 p-8 rounded-lg">
                 <h2 class="text-3xl font-bold mb-4">Create a Blog</h2>
                 <div class="mb-4">
-                    <label for="blogTitle" class="block text-green-500">Blog Title:</label>
+                    <label for="blogTitle" class="block text-green-500 -mt-4">Blog Title:</label>
                     <input type="text" id="blogTitle" name="blogTitle" class="block w-full mt-1 px-3 py-2 border border-green-900 rounded-md bg-gray-900 text-green-500">
                 </div>
+           
                 <div class="mb-4">
                     <label for="codeSnippet" class="block text-green-500">Code Snippet:</label>
                     <textarea id="codeSnippet" name="codeSnippet" rows="6" class="block w-full mt-1 px-3 py-2 border border-green-900 rounded-md bg-gray-900 text-green-500"></textarea>
@@ -96,5 +67,6 @@
             <p class="text-center text-green-500">© 2023 Hacker's Den. All rights reserved.</p>
         </div>
     </footer>
+    <script src="blog_creater.js"></script>
 </body>
 </html>
